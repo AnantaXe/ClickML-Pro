@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  # ── ClickML-Pro API ───────────────────────────────────────────────────
+  clickml:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - CLICKML_ENV=production
+      - CLICKML_LOG_LEVEL=info
+      - CLICKML_DATA_DIR=/data
+      - CLICKML_REDIS_URL=redis://redis:6379/0
+      - CLICKML_DATABASE_URL=postgresql://clickml:clickml@postgres:5432/clickml
+    volumes:
+      - clickml-data:/data
+    depends_on:
+      - redis
+      - postgres
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ── Redis (job queue, caching) ────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+  # ── PostgreSQL (metadata, registry) ───────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: clickml
+      POSTGRES_PASSWORD: clickml
+      POSTGRES_DB: clickml
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  clickml-data:
+  redis-data:
+  pg-data:

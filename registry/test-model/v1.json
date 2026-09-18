@@ -1,0 +1,25 @@
+{
+  "name": "test-model",
+  "version": 1,
+  "description": "A test model",
+  "status": "production",
+  "lineage": {
+    "base_model": "",
+    "base_model_version": "",
+    "fine_tuning_method": "",
+    "dataset": "",
+    "dataset_version": "",
+    "training_job_id": "",
+    "quantization_method": "",
+    "parent_model": ""
+  },
+  "artifacts": [],
+  "tags": [],
+  "owner": "",
+  "team": "",
+  "created_at": "2026-02-22T15:39:20.791280+00:00",
+  "updated_at": "2026-02-24T04:14:22.254105+00:00",
+  "metadata": {
+    "framework": "pytorch"
+  }
+}

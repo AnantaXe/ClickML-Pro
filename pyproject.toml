@@ -1,0 +1,120 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel>=0.41.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clickml-pro"
+version = "0.1.0"
+description = "ClickML Pro — Enterprise-grade low-code MLOps & Data Engineering platform with LLM training, diffusion fine-tuning, quantization, model registry, and full data lifecycle management."
+readme = "README.md"
+license = {text = "Apache-2.0 with Commons Clause"}
+requires-python = ">=3.10"
+authors = [
+    {name = "AnantaXe", email = "contact@anantaxe.com"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+keywords = ["mlops", "llm", "fine-tuning", "quantization", "data-engineering", "low-code", "clickml"]
+
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "pyyaml>=6.0",
+    "click>=8.1.0",
+    "rich>=13.0.0",
+    "httpx>=0.25.0",
+    "sqlalchemy>=2.0.0",
+    "alembic>=1.12.0",
+    "celery[redis]>=5.3.0",
+    "redis>=5.0.0",
+    "boto3>=1.29.0",
+    "python-multipart>=0.0.6",
+    "jinja2>=3.1.0",
+    "nbformat>=5.9.0",
+    "nbconvert>=7.11.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+training = [
+    "torch>=2.1.0",
+    "transformers>=4.36.0",
+    "datasets>=2.15.0",
+    "accelerate>=0.25.0",
+    "peft>=0.7.0",
+    "trl>=0.7.0",
+    "bitsandbytes>=0.41.0",
+    "safetensors>=0.4.0",
+    "sentencepiece>=0.1.99",
+    "tokenizers>=0.15.0",
+    "wandb>=0.16.0",
+    "diffusers>=0.24.0",
+    "deepspeed>=0.12.0",
+]
+data = [
+    "pandas>=2.1.0",
+    "pyarrow>=14.0.0",
+    "polars>=0.19.0",
+    "duckdb>=0.9.0",
+    "great-expectations>=0.18.0",
+    "apache-airflow>=2.7.0",
+    "sqlglot>=19.0.0",
+]
+quantization = [
+    "auto-gptq>=0.5.0",
+    "autoawq>=0.1.0",
+    "optimum>=1.14.0",
+    "onnxruntime>=1.16.0",
+    "ctransformers>=0.2.0",
+]
+ui = []
+all = [
+    "clickml-pro[training,data,quantization,ui]",
+]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.1.0",
+    "mypy>=1.7.0",
+    "pre-commit>=3.6.0",
+    "httpx>=0.25.0",
+]
+
+[project.scripts]
+clickml = "clickml_pro.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/AnantaXe/ClickML-Pro"
+Documentation = "https://github.com/AnantaXe/ClickML-Pro/docs"
+Repository = "https://github.com/AnantaXe/ClickML-Pro"
+Issues = "https://github.com/AnantaXe/ClickML-Pro/issues"
+
+[tool.setuptools.packages.find]
+include = ["clickml_pro*"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "A", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.mypy]
+python_version = "3.10"
+strict = true

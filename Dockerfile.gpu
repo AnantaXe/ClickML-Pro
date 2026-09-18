@@ -1,0 +1,28 @@
+# ── GPU variant (for training workloads) ────────────────────────────────
+FROM nvidia/cuda:12.2.2-devel-ubuntu22.04 AS gpu
+
+LABEL maintainer="ClickML Team" \
+      description="ClickML-Pro GPU – Training & Quantization"
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    DEBIAN_FRONTEND=noninteractive
+
+WORKDIR /app
+
+# System deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        python3.11 python3.11-dev python3-pip git curl build-essential && \
+    ln -sf /usr/bin/python3.11 /usr/bin/python && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY pyproject.toml README.md ./
+COPY clickml_pro/ clickml_pro/
+
+RUN pip install --upgrade pip && \
+    pip install ".[all]"
+
+EXPOSE 8000
+
+CMD ["clickml", "serve", "--host", "0.0.0.0", "--port", "8000"]

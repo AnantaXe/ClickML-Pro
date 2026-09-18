@@ -1,0 +1,91 @@
+# ────────────────────────────────────────────
+# ClickML Pro — Environment & Build Artifacts
+# ────────────────────────────────────────────
+
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+wheels/
+pip-wheel-metadata/
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Testing / Coverage
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# mypy
+.mypy_cache/
+
+# Docker
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Model artifacts & checkpoints (large files)
+*.ckpt
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.pkl
+*.onnx
+*.gguf
+models/
+checkpoints/
+artifacts/
+
+# Data
+data/raw/
+data/processed/
+*.parquet
+*.csv
+!examples/**/*.csv
+
+# Logs
+logs/
+*.log
+
+# Redis dump
+dump.rdb
+
+# Airflow
+airflow_home/
+
+# Dashboard (Node)
+node_modules/
+clickml_pro/ui/dashboard/dist/
